@@ -1,0 +1,329 @@
+<!-- Welcome to some sample code to control your Firebase Database -->
+<!-- HERE IS YOUR HTML TO SET UP YOUR PAGE -->
+<html>
+    <head>
+
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+      <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <!-- HERE ARE YOUR FIREBASE and GOOGLE AUTHENICATION IMPORTS -->
+        <script src="https://www.gstatic.com/firebasejs/5.7.3/firebase.js"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
+
+        <style>
+
+        body {
+          display: flex;
+          min-height: 100vh;
+          width: 100%;
+          padding:0;
+          margin:0;
+          align-items:center;
+          justify-content:center;
+          flex-direction:column;
+        }
+
+        #uploader {
+          -webkit-appearance: none;
+          appearance: none;
+          width: 50%;
+          margin-bottom: 10px;
+        }
+
+        .nav-wrapper {
+          background-color: black;
+
+        }
+        .cool {
+          font-size: 10px
+        }
+
+        .row {
+          margin-left: 35%
+
+
+        }
+
+        .bruh {
+
+          background-color: #A7D8D2
+        }
+
+        .btn {
+          background-color: grey;
+
+        }
+
+        .epic {
+          font-size: 55px
+        }
+        <style>
+        .nav-wrapper {
+          background-color: black;
+
+        }
+        .cool {
+          font-size: 20px
+        }
+        .row {
+          width:200%;
+          margin-left:0%;
+          margin-right: 0px;
+        }
+        .card-title{
+
+          align-content:
+      }
+
+
+      </style>
+
+
+        </style>
+
+    </head>
+    <body >
+
+            <nav>
+              <div class="nav-wrapper">
+                <a href="#!" class="brand-logo">EDU Hub</a>
+
+
+                <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                <ul class="right hide-on-med-and-down">
+                  <li><a class="small material-icons">file_download</a></li>
+                  <li><a href="badges.html">Help</a></li>
+                  <li><a href="collapsible.html">Contanct</a></li>
+                  <li><a id="uid"></a></li>
+                  <li><a onclick="signin()">Switch Account</a></li>
+                </ul>
+              </div>
+            </nav>
+
+<div class="bruh">
+            <p class="epic">I am a panel.</p>
+           
+
+            <p>This app shows basics of Firebase with Javascript. Inspect page and view console to see info.</p>
+
+             <!-- This is where input shows up -->
+
+            <hr> <!--Ads a line to separate -->
+
+            <input type="text" id="mytext"><br>
+
+            <center>
+            <button class="btn" onclick="pushData()">Post
+
+            </button>
+            <button class="btn" onclick="removeData()">Remove data</button>
+
+
+            <button class="btn" onClick="createDiv()">Show Posts
+             
+            </button>
+
+            <input  class="btn" type="file" value="upload" id="inputFileToLoad" onchange="pushStorage()"/>
+            <button onclick="window.open('https://www.freecodecamp.org/news/5-ways-to-build-real-time-apps-with-javascript-5f4d8fe259f7/')">CLICK HERE</button>
+
+           
+
+            <div id="info"></div>
+
+          </center>
+
+
+
+            <h class="cool ">Daily Posts</h>
+<div class="container"></div>
+
+<div id="imgTest" ><br></div>
+            <input id="inputFileToLoad" type="file" onchange="encodeImageFileAsURL();" /><br>
+            <input type="text" id="mytext"><br>
+            <div id="stuff"></div>
+
+           
+
+
+
+
+
+  <div id="getText" style="display: none;">
+     <div class="row">
+        <div class="col s12 m6">
+          <div class="card grey">
+            <div class="card-content white-text">
+              <input type="text" id="mytext">
+              <i class="medium material-icons">person</i>
+              <span class="card-title">u/TonyB123: ATW: Sophmore at George Washington High, JK, Fl</span>
+              <a id="uid"></a>
+              <b class="card-title">The American Revolution: Causes and Consequences </b>
+              <b class="card-title">Download Below:</b>
+              <button class="btn"><i class="large material-icons">file_download</i></button>
+              <i class="small material-icons">arrow_upward</i>  <i class="small material-icons">arrow_downward</i>  <i class="small material-icons">comment</i></div>
+            <div class="card-action">
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+</div>
+<h> </h>
+
+
+                     
+
+            </body>
+
+
+            <!-- HERE IS THE JAVASCRIPT TO CONNECT TO YOUR FIREBASE -->
+              <script>
+                  // Your web app's Firebase configuration
+                   var firebaseConfig = {
+                    apiKey: "AIzaSyBFEFOY5Gz4lXjR4xK0V0RIlXQstKEc4Oc",
+                    authDomain: "basic-cdc91.firebaseapp.com",
+                    databaseURL: "https://basic-cdc91.firebaseio.com/",
+                    projectId: "basic-cdc91",
+                    storageBucket: "basic-cdc91.appspot.com",
+                    messagingSenderId: "97441529810",
+                    appId: "1:97441529810:web:831513caf97ca76bde920b",
+                    measurementId: "G-2SR539L1SK"
+                  };
+            // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+
+               
+        // Check to see if you are logged in
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user == null) {
+                document.getElementById("uid").innerHTML = "not logged in";
+                return;
+            } else if(user!=null) {
+                
+                //userId = user.displayName; // you can also get .id .displayName, .photoURL, .email
+                userId=user.uid;
+                displayName=user.displayName;
+                userphoto = user.photoURL;
+                document.getElementById("uid").innerHTML = displayName;// display Google uid on page
+                console.log(userId)
+                getData();
+               
+            } // end user null check
+        }); // end check auth state
+       
+       // HERE IS THE FUNCTION TO SHOW HOW TO GET USER DATA
+       function getData() {
+          var userId = document.getElementById("uid").innerHTML;
+
+          var stuff = document.getElementById("stuff")
+          
+           firebase.database().ref('/tweets/' + userId).once('value', function(snapshot) {
+               console.log(snapshot.val());
+
+              if (snapshot.val()== null) {
+                stuff.innerHTML = "No tweets";
+                return;
+              }
+
+               keys = Object.keys(snapshot.val());
+               values = Object.values(snapshot.val());
+
+
+              mystr = ""
+              for (i = 0; i < keys.length; i = i +1) {
+              mystr = mystr + values[i].tweet + "<br>"
+
+              }
+
+              stuff.innerHTML = mystr; // Makes text appear in the body of the webpage
+
+              getData();
+
+
+           });
+
+       }
+       
+       // HERE IS THE FUNCTION TO SHOW HOW TO SET/OVERWRITE USER DATA
+       function setData() {
+           var userId = document.getElementById("uid").innerHTML;
+           var js_time = Date.now();
+           firebase.database().ref('/tweets/' + userId).set({tweet:"Set over-writes", time: js_time});
+       }
+       
+       // HERE IS THE FUNCTION TO SHOW HOW TO SET/OVERWRITE USER DATA
+       function updateData() {
+           var userId = document.getElementById("uid").innerHTML;
+           firebase.database().ref('/tweets/' + userId).update({tweet:"Update replaces data, but will leave non replaced data as is"});
+       }
+         
+        // HERE IS THE FUNCTION TO SHOW HOW TO PUSH/ADD NEW USER DATA TO EXISTING DATABASE
+        function pushData() {
+            var userId = document.getElementById("uid").innerHTML;
+            var curtext = document.getElementById("mytext").innerHTML;
+            //var curimg = document.getElementById("ImgTest").innerHTML;
+            var js_time = Date.now()
+            console.log(userId)
+            firebase.database().ref('/tweets/' + userId + '/').push({tweet: curtext, time: js_time}).catch(function(error){alert("Data could not be saved" +error)});
+            
+            
+            
+          }
+          
+
+
+
+
+
+
+
+
+        // HERE IS THE FUNCTION TO SHOW HOW TO REMOVE USER DATA FROM EXISTING DATABASE - BE CAREFUL!
+        function removeData() {
+            var tweetid = firebase.database().ref('tweets/' + userId + "/").remove();
+        }
+       
+        function signin() {
+            var provider = new firebase.auth.GoogleAuthProvider();
+            firebase.auth().signInWithRedirect(provider).then(function(result) {
+                window.location.replace("fbtest.html");
+            });
+        }
+        function createDiv() {
+          var div = document.createElement('div');
+          div.innerHTML = document.getElementById('getText').innerHTML;
+          document.body.appendChild(div);
+
+        }
+
+        function encodeImageFileAsURL() {
+
+            var filesSelected = document.getElementById("inputFileToLoad").files;
+            if (filesSelected.length > 0) {
+                var fileToLoad = filesSelected[0];
+                var fileReader = new FileReader();
+               
+                fileReader.onload = function(fileLoadedEvent) {
+                    var srcData = fileLoadedEvent.target.result; document.getElementById("imgTest").innerHTML = "<img src='" + srcData + "' class='circle' width='100'/><br>";
+                    console.log(srcData);
+                }
+                fileReader.readAsDataURL(fileToLoad);
+            }
+        } // end function
+
+
+
+       
+        function pushStorage() {
+          var myfile = document.getElementById("inputFileToLoad").files[0];
+                  var sref = firebase.storage().ref(myfile.name);
+                 
+                  var task = sref.put(myfile);
+                  console.log(task);
+    }
+
+
+    </script>
+</html>
