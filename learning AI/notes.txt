@@ -1,0 +1,3 @@
+- important not to test AI on data its already run on as this can scew results
+- overfitting is when you over test the same data, causing the AI to detect patterns onyl for that data set, getting high accuracy on that data set but low accuracy on other sets
+- 
