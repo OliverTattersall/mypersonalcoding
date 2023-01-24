@@ -1,0 +1,63 @@
+/* CSS Code */
+    /* Heading */
+    .grid{
+        /* display: inline-grid; */
+    }
+    .row{
+        margin: auto;
+        position: relative;
+        left: -25px;
+        height: 30px;
+    }
+    .box{
+        position: absolute;
+        display: inline-block;
+        /* margin: auto; */
+        width: 5%;
+        height: 30px;
+        /* background-color: ; */
+
+        outline: 2px solid black;
+    } .box:hover{
+        background-color: #90EE90; 
+    } 
+    h1 {
+        color: orangered;
+        font-size: 45px;
+    }
+ 
+    /* 3*3 Grid */
+    
+ 
+    /* Reset Button */
+    #but {
+        box-sizing: border-box;
+        width: 95px;
+        height: 40px;
+        border: 1px solid dodgerblue;
+        margin: auto;
+        border-radius: 4px;
+        font-family: Verdana,
+            Geneva, Tahoma, sans-serif;
+ 
+        background-color: dodgerblue;
+        color: white;
+        font-size: 20px;
+        cursor: pointer;
+    }
+ 
+
+ 
+    /* Main Container */
+    #main {
+        text-align: center;
+    }
+ 
+    /* Game Instruction Text */
+    #ins {
+        font-family: Verdana,
+            Geneva, Tahoma, sans-serif;
+             
+        color: dodgerblue;
+        font-size: 17px;
+    }

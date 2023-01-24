@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+   
+<head>
+    <meta name="viewport" content=
+        "width=device-width, initial-scale=1.0">
+   
+    <!-- CSS file Included -->
+    <link rel="stylesheet"
+        type="text/css" href="tictactoe.css">
+   
+    <!-- JavaScript file included -->
+    
+</head>
+   
+<body>
+    <div id="main">
+        <h1>TIC TAC TOE</h1>
+   
+        <!-- Game Instructions -->
+        <p id="ins">Game starts by just Tap on 
+            box<br><br>First Player starts as 
+            <b>Player X</b><br>And<br>Second 
+            Player as <b>Player 0</b>
+        </p>
+ 
+  
+        <h3 id="turn">Turn: X</h1>
+   
+        <br><br>
+        <div class="grid">
+            <div class="row">
+                <div class="box" id="11" style="left: 44.5%"></div>
+                <div class="box" id="12"></div>
+                <div class="box" id="13" style="right: 39.5%"></div>
+
+            </div>
+            <div class="row">
+                <div class="box" id="21" style="left: 44.5%"></div>
+                <div class="box" id="22"></div>
+                <div class="box" id="23" style="right: 39.5%"></div>
+
+            </div>
+            <div class="row">
+                <div class="box" id="31" style="left: 44.5%"></div>
+                <div class="box" id="32"></div>
+                <div class="box" id="33" style="right: 39.5%"></div>
+
+            </div>
+        </div>
+        <br><br>
+        
+   
+        <!-- Grid end here  -->
+        <br><br><br>
+        <!-- Button to reset game -->
+        <button id="but" onclick="resetBoard()">
+            RESET
+        </button>
+   
+        <br><br>
+        <!-- Space to show player turn -->
+        <p id="print"></p>
+ 
+  
+   
+   
+    </div>
+</body>
+<script src="tictactoe.js"></script>
+</html>
