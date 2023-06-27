@@ -76,15 +76,26 @@ WSGI_APPLICATION = 'drinksData.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.postgresql',
+#        'NAME': 'drinksdata',
+#        'USER': os.getenv('psqluser'),
+#        'PASSWORD': os.getenv('psqlpassword'),
+#        'HOST': 'localhost',
+#        'PORT': '5432',
+#    }
+# }
+
 DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.postgresql',
-       'NAME': 'drinksdata',
+  'default': {
+    'ENGINE': 'django.db.backends.postgresql',
+    'NAME': 'neondb',
        'USER': os.getenv('psqluser'),
        'PASSWORD': os.getenv('psqlpassword'),
-       'HOST': 'localhost',
-       'PORT': '5432',
-   }
+    'HOST': 'ep-holy-sun-679523.us-east-2.aws.neon.tech',
+    'PORT': '5432',
+  }
 }
 
 
