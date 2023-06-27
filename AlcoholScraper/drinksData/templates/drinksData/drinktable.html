@@ -2,8 +2,18 @@
 <html>
 <head>
     <meta charset="UTF-8">
+    <style>
+        table,td{
+            border: 1px solid;
+            border-collapse: collapse;
+        }
+        tr:hover {
+            background-color: rgba(255,122,89, 0.5);
+        } 
+    </style>
 </head>
 <body>
+    <h1 style="text-align: center;">{{type}} Table</h1>
     <table style="width:100%; text-align:center">
     <tr>
         <th>Name</th>
@@ -11,24 +21,28 @@
         <th>Volume(mL)</th>
         <th>Content</th>
         <th>Price</th>
+        <th>Sale Price</th>
         <th>Total Volume(mL)</th>
         <th>Total Alc</th>
         <th>Alc Per Dollar</th>
         <th>Link</th>
         <th>Type</th>
+        <th>Store</th>
     </tr>
     {% for drink_dict in drinks %}
     <tr>
         <td>{{drink_dict.name}}</td>
         <td>{{drink_dict.units}}</td>
         <td>{{drink_dict.volume}}</td>
-        <td>{{drink_dict.content}}</td>
+        <td>{{drink_dict.content | multiply:100}}</td>
         <td>{{drink_dict.price}}</td>
+        <td>{{drink_dict.sale_price}}</td>
         <td>{{drink_dict.tvolume}}</td>
         <td>{{drink_dict.talc}}</td>
         <td>{{drink_dict.alc_per_dol}}</td>
         <td><a href='{{drink_dict.link}}'>link</a></td>
         <td>{{drink_dict.type}}</td>
+        <td>{{drink_dict.store}}</td>
     </tr>
     {% endfor %}
     </table>
