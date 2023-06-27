@@ -166,7 +166,8 @@ def submit_drink(request):
     return render(request,'drinksData/forms.html', {'form': form})
 
 
-
+def index(request):
+    return render(request, 'drinksData/index.html')
 
 
 @register.filter(name="multiply")

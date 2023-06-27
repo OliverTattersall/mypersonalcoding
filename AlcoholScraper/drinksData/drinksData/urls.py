@@ -19,6 +19,7 @@ from django.urls import path
 from drinksData import views
 
 urlpatterns = [
+    path('', views.index, name="index"),
     path('admin/', admin.site.urls),
     path('drink/<name>/', views.get_drink, name="get_drink" ),
     path('many/<type>/', views.get_drink_class, name="get_drink_class"),
