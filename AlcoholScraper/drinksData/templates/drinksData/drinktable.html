@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+    <table style="width:100%; text-align:center">
+    <tr>
+        <th>Name</th>
+        <th>Units</th>
+        <th>Volume(mL)</th>
+        <th>Content</th>
+        <th>Price</th>
+        <th>Total Volume(mL)</th>
+        <th>Total Alc</th>
+        <th>Alc Per Dollar</th>
+        <th>Link</th>
+        <th>Type</th>
+    </tr>
+    {% for drink_dict in drinks %}
+    <tr>
+        <td>{{drink_dict.name}}</td>
+        <td>{{drink_dict.units}}</td>
+        <td>{{drink_dict.volume}}</td>
+        <td>{{drink_dict.content}}</td>
+        <td>{{drink_dict.price}}</td>
+        <td>{{drink_dict.tvolume}}</td>
+        <td>{{drink_dict.talc}}</td>
+        <td>{{drink_dict.alc_per_dol}}</td>
+        <td><a href='{{drink_dict.link}}'>link</a></td>
+        <td>{{drink_dict.type}}</td>
+    </tr>
+    {% endfor %}
+    </table>
+    
+</body>
+</html>
