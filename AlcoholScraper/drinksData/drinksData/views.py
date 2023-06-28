@@ -68,32 +68,33 @@ def return_facts_lcbo(link):
         return False
     try:
         source = urllib.request.urlopen(link).read()
+        soup = bs4.BeautifulSoup(source,'html.parser')
+
+        # for res in soup.find_all('div', class_='lcbo-product-size'):
+        #     print(res)
+        name = soup.find('span', class_='base').get_text()
+        
+        units = 1
+        volume_text = soup.find('div', class_='lcbo-product-size').get_text()
+        if ' x ' in volume_text:
+            volume = int(volume_text.split()[2])
+            units = int(volume_text.split()[0])
+        else:
+            volume = int(volume_text.split()[0])
+        price_query = soup.find_all('span', class_='price')
+        if (len(price_query) > 1):
+            good = list(filter(lambda x : 'Original Price' in x.get_text(), price_query))
+            price = float(good[0].get_text().replace('$', '').replace('Original Price', ''))
+        else:
+            price = float(price_query[0].get_text().replace('$', ''))
+        alc_perc = float(soup.find('div', class_='moredetail').ul.li.find('div', class_='value').get_text().replace("%",''))/100
+
+        # print(name, units, volume, price, alc_perc)
+        return [[name, units, volume, price, alc_perc, False]]
     except:
         return False
 
-    soup = bs4.BeautifulSoup(source,'html.parser')
-
-    # for res in soup.find_all('div', class_='lcbo-product-size'):
-    #     print(res)
-    name = soup.find('span', class_='base').get_text()
     
-    units = 1
-    volume_text = soup.find('div', class_='lcbo-product-size').get_text()
-    if ' x ' in volume_text:
-        volume = int(volume_text.split()[2])
-        units = int(volume_text.split()[0])
-    else:
-        volume = int(volume_text.split()[0])
-    price_query = soup.find_all('span', class_='price')
-    if (len(price_query) > 1):
-        good = list(filter(lambda x : 'Original Price' in x.get_text(), price_query))
-        price = float(good[0].get_text().replace('$', '').replace('Original Price', ''))
-    else:
-        price = float(price_query[0].get_text().replace('$', ''))
-    alc_perc = float(soup.find('div', class_='moredetail').ul.li.find('div', class_='value').get_text().replace("%",''))/100
-
-    # print(name, units, volume, price, alc_perc)
-    return [[name, units, volume, price, alc_perc, False]]
 
 
 
@@ -151,11 +152,13 @@ def submit_values(link, type, store, facts):
 def submit_drink(request):
     form = TestForm( request.POST or None)
     data = "None"
+    success = ""
     if form.is_valid():
         data = form.cleaned_data
         link = data['link']
         type = data['type']
         store = data['store']
+        success = "Success"
         if store == 'LCBO':
             result = return_facts_lcbo(link)
         else:
@@ -163,7 +166,9 @@ def submit_drink(request):
         if result:
             for row in result:
                 submit_values(link, type, store, row)
-    return render(request,'drinksData/forms.html', {'form': form})
+        else:
+            success="Success: Link did not work. Product could already be in database or the link is badly formatted."
+    return render(request,'drinksData/forms.html', {'form': form, 'success':success})
 
 
 def index(request):

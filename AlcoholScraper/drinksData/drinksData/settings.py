@@ -80,8 +80,8 @@ WSGI_APPLICATION = 'drinksData.wsgi.application'
 #    'default': {
 #        'ENGINE': 'django.db.backends.postgresql',
 #        'NAME': 'drinksdata',
-#        'USER': os.getenv('psqluser'),
-#        'PASSWORD': os.getenv('psqlpassword'),
+#        'USER': os.getenv('localpsqluser'),
+#        'PASSWORD': os.getenv('localpsqlpassword'),
 #        'HOST': 'localhost',
 #        'PORT': '5432',
 #    }

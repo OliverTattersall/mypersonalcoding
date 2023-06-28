@@ -10,11 +10,16 @@
 </head>
 <body>
     <h1>Submit new Drink</h1>
+    <p>To submit a new drink, Get a link from one of the sites listed. The link must be a specific drink, for example 
+        <a href="https://www.lcbo.com/en/molson-canadian-904409">Molson link</a> and not 
+        <a href="https://www.lcbo.com/en/products#t=clp-products&sort=relevancy&layout=card&f:@ec_category=[Beer%20%26%20Cider]">Beer Page</a>. 
+        <br/>Pick the correct store or the data will not be collected correctly.
+    </p>
     <form method="POST" action="">{% csrf_token %}
         {{form}}
         <input type="submit" value="Submit">
     </form>
-
+    <p>{{success}}</p>
     <p>Return <a href="/">Home</a></p>
 </body>
 </html>
