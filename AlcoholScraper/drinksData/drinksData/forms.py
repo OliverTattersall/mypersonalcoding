@@ -19,10 +19,16 @@ search_types = [
          ]
 
 stores = [
+        ('LCBO', 'LCBO'),
+        ('Beer Store', 'Beer Store'),
+        ]
+
+search_stores = [
         ('', 'All Stores'),
         ('LCBO', 'LCBO'),
         ('Beer Store', 'Beer Store'),
         ]
+
 units = [
         (0,"All units"),
         (1,1),
@@ -49,7 +55,7 @@ class TestForm(forms.Form):
 
 class SearchForm(forms.Form):
     type = forms.CharField(widget=forms.Select(choices=search_types))
-    store = forms.CharField(widget=forms.Select(choices=stores), required=False)
+    store = forms.CharField(widget=forms.Select(choices=search_stores), required=False)
     units = forms.IntegerField(widget=forms.Select(choices=units))
     min_apd = forms.DecimalField(decimal_places=4, max_digits=7, initial=0, label='Minimum Alcohol per dollar')
 
