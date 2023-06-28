@@ -2,7 +2,7 @@ from django import forms
 
 types = [
         ('beer', 'Beer'),
-        ('hardliquor', 'Hard liquor'),
+        ('hard liquor', 'Hard liquor'),
         ('wine', 'Wine'),
         ('coolers', 'Coolers'),
         ('ipas', 'IPAs'),
