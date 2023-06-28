@@ -6,6 +6,7 @@ types = [
         ('wine', 'Wine'),
         ('coolers', 'Coolers'),
         ('ipas', 'IPAs'),
+        ('ciders', 'Ciders'),
          ]
 
 stores = [
