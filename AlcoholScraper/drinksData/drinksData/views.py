@@ -173,6 +173,21 @@ def submit_drink(request):
             success="Success: Link did not work. Product could already be in database or the link is badly formatted."
     return render(request,'drinksData/forms.html', {'form': form, 'success':success})
 
+def heinekendex(request):
+    data = Drink.objects.values().filter(type = 'beer').filter(store='LCBO')
+    heineken = Drink.objects.values().get(name='Heineken', units=6)
+
+    hprice = heineken['price']
+    hvolume = heineken['volume']
+    hcontent = heineken['content']
+
+    # print(heineken)
+    data = list(data)
+    data.sort(reverse=True, key=lambda val : val['alc_per_dol'])
+    data_numbers = list(map(lambda val:val['alc_per_dol']*hprice/(hvolume*hcontent), data))
+    data_labels  = list(map(lambda val:val['name'], data))
+    return render(request, 'drinksData/heinekendex.html', {'data_numbers':data_numbers, 'data_labels':data_labels})
+
 
 def index(request):
     form = SearchForm(request.POST or None)
