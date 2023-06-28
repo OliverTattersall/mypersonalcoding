@@ -1,6 +1,6 @@
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from .models import Drink
-from .forms import TestForm
+from .forms import TestForm, SearchForm
 from django.shortcuts import render
 import bs4
 import urllib.request
@@ -114,8 +114,8 @@ def get_drink_class(request, type):
 
     if 'store' in queries:
         data = data.filter(store = queries['store'])
-    if 'size' in  queries:
-        data = data.filter(units = queries['size'])
+    if 'units' in  queries:
+        data = data.filter(units = queries['units'])
 
     if 'min_apd' in queries:
         data  = data.filter(alc_per_dol__gt=queries['min_apd'])
@@ -167,7 +167,25 @@ def submit_drink(request):
 
 
 def index(request):
-    return render(request, 'drinksData/index.html')
+    form = SearchForm(request.POST or None)
+    if form.is_valid():
+        data = form.cleaned_data
+        # print(data, type(data))
+        type = data['type']
+        # store = data['store']
+        # units = data['units']
+        # min_apd = data['min_apd']
+        queries = []
+        for key,val in data.items():
+            # print(key, val)
+            if val and key!='type':
+                print(key)
+                queries.append(key + '='+str(val))
+        path = '/many/'+type+'/?' + '&'.join(queries)
+        print(path)
+        return HttpResponseRedirect(path)
+
+    return render(request, 'drinksData/index.html', {'form':form})
 
 
 @register.filter(name="multiply")
