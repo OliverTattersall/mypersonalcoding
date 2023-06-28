@@ -11,7 +11,7 @@ types = [
 search_types = [
         ('all', 'All Drinks'),
         ('beer', 'Beer'),
-        ('hard liquor', 'Hard liquor'),
+        ('hardliquor', 'Hard liquor'),
         ('wine', 'Wine'),
         ('coolers', 'Coolers'),
         ('ipas', 'IPAs'),

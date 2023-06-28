@@ -6,7 +6,7 @@ import bs4
 import urllib.request
 from django.template.defaulttags import register
 
-drink_mapper = {'beer': 'Beer', 'hard liquor': 'Hard liquor', 'wine': 'Wine', 'coolers': 'Coolers', 'ipas': 'IPAs', 'all':'All Drinks'}
+drink_mapper = {'beer': 'Beer', 'hardliquor': 'Hard liquor', 'wine': 'Wine', 'coolers': 'Coolers','ipas': 'IPAs', 'all':'All Drinks', 'ciders':'Ciders'}
 
 def return_facts_beer_store(link):
     if Drink.objects.filter(link=link).exists():
@@ -121,12 +121,15 @@ def get_drink_class(request, type):
     if 'min_apd' in queries:
         data  = data.filter(alc_per_dol__gt=queries['min_apd'])
 
-    print(queries, 'drink' in queries)
+    # print(queries, 'drink' in queries)
 
 
 
     data = list(data)
     data.sort(reverse=True, key=lambda val : val['alc_per_dol'])
+    for row in data:
+        row['type'] = drink_mapper[row['type']]
+    # print(data)
 
     dictData = {'drinks':data, 'type': drink_mapper[type]}
     return render(request, 'drinksData/drinktable.html', context=dictData )
