@@ -158,6 +158,7 @@ def submit_drink(request):
     success = ""
     if form.is_valid():
         data = form.cleaned_data
+        print(data)
         link = data['link']
         type = data['type']
         store = data['store']
