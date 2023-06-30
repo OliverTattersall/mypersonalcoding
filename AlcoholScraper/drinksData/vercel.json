@@ -5,11 +5,13 @@
         "use": "@vercel/python"
       }
     ],
-
+    "rewrites" : [{
+      "src": "/(.*)",
+      "dest": "drinksData/wsgi.py"
+    }],
     "headers": [
       {
         "source": "/(.*)",
-        "dest":"drinksData/wsgi.py",
         "headers": [
           { "key": "Access-Control-Allow-Credentials", "value": "true" },
           { "key": "Access-Control-Allow-Origin", "value": "*" },
