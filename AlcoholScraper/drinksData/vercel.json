@@ -6,8 +6,8 @@
       }
     ],
     "rewrites" : [{
-      "src": "/(.*)",
-      "dest": "drinksData/wsgi.py"
+      "source": "/(.*)",
+      "destination": "drinksData/wsgi.py"
     }],
     "headers": [
       {
