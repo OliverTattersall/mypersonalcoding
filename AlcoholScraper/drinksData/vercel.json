@@ -8,6 +8,7 @@
     "routes": [
       {
         "src": "/(.*)",
+        "headers": {"Access-Control-Allow-Origin" : "*"},
         "dest": "drinksData/wsgi.py"
       }
     ]
