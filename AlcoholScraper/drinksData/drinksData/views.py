@@ -1,10 +1,11 @@
-from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse, HttpResponseRedirect
+from django.shortcuts import render
+from django.template.defaulttags import register
 from .models import Drink
 from .forms import TestForm, SearchForm
-from django.shortcuts import render
 import bs4
 import urllib.request
-from django.template.defaulttags import register
+
 
 drink_mapper = {'beer': 'Beer', 'hardliquor': 'Hard liquor', 'wine': 'Wine', 'coolers': 'Coolers','ipas': 'IPAs', 'all':'All Drinks', 'ciders':'Ciders'}
 
@@ -98,10 +99,16 @@ def return_facts_lcbo(link):
 
 
 
-def get_drink(request, name):
+def get_drink(request):
+    queries = request.GET
+    if 'name' in queries:
 
-    val = Drink.objects.values().get(name = name)
-    return JsonResponse(val, safe=False)
+
+        val = list(Drink.objects.values().filter(name = queries['name']))
+
+        return JsonResponse(val, safe=False)
+    else:
+        return "ERROR"
     # return HttpResponse( data , content_type="application/json")
 
 def get_drink_class(request, type):
@@ -120,6 +127,9 @@ def get_drink_class(request, type):
 
     if 'min_apd' in queries:
         data  = data.filter(alc_per_dol__gt=queries['min_apd'])
+
+    if 'name' in queries:
+        data = data.filter(name = queries['name'])
 
     # print(queries, 'drink' in queries)
 

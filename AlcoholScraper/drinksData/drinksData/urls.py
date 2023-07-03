@@ -21,7 +21,7 @@ from drinksData import views
 urlpatterns = [
     path('', views.index, name="index"),
     path('admin/', admin.site.urls),
-    path('drink/<name>/', views.get_drink, name="get_drink" ),
+    path('drink/', views.get_drink, name="get_drink" ),
     path('many/<type>/', views.get_drink_class, name="get_drink_class"),
     path('forms/',views.submit_drink,name="submit_drink"),
     path('heinekendex/', views.heinekendex, name="heinekendex"),
